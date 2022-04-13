@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.25462962962962965" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/drawable/radius.xml" value="0.21944444444444444" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/drawable/shape_button.xml" value="0.12685185185185185" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/layout/body_write.xml" value="0.18092105263157895" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/layout/bottom_nav_view.xml" value="0.2552083333333333" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/layout/bottomdialog.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/layout/btm_dialog_profile.xml" value="0.2814814814814815" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/layout/ex_write.xml" value="0.25" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/layout/exlist.xml" value="0.15677966101694915" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/layout/exlist_item.xml" value="0.18" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/layout/join.xml" value="0.1" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/layout/login.xml" value="0.18092105263157895" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/layout/meal_write.xml" value="0.2390625" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/layout/meallist.xml" value="0.22760416666666666" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/layout/profile.xml" value="0.2453125" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2552083333333333" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/menu/mainbar_drawer.xml" value="0.38645833333333335" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/menu/mainbar_obtion.xml" value="0.2512820512820513" />
+        <entry key="..\:/Users/solut/AndroidStudioProjects/exwrite/app/src/main/res/menu/profile_menu.xml" value="0.22760416666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
