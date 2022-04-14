@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mealText"
+        android:title="텍스트">
+
+    </item>
+
+    <item
+        android:id="@+id/mealCam"
+        android:title="카메라">
+
+    </item>
+
+    <item
+        android:id="@+id/mealGal"
+        android:title="갤러리">
+
+    </item>
+</menu>

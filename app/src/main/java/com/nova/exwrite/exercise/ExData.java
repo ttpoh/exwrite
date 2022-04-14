@@ -1,4 +1,4 @@
-package com.nova.exwrite;
+package com.nova.exwrite.exercise;
 
 import java.io.Serializable;
 
@@ -12,13 +12,13 @@ public class ExData implements Serializable {
     private byte[] ex_pic;
 
 
-    public ExData(String extitle, String exstart, String extime, String excontents, byte[] ex_pic) {
+    public ExData(String extitle, String exstart, String extime, String excontents,byte[] exImg) {
 
         this.extitle = extitle;
         this.exstart = exstart;
         this.extime = extime;
         this.excontents = excontents;
-        this.ex_pic = ex_pic;
+        this.ex_pic = exImg;
     }
 
 

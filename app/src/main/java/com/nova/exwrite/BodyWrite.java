@@ -22,7 +22,6 @@ public class BodyWrite extends AppCompatActivity implements View.OnClickListener
         Button btn_bodyS = (Button) findViewById(R.id.btn_bodywrite_save);
         ImageButton btn_body_img = (ImageButton) findViewById(R.id.btn_bodywrite_img);
 
-
         btn_bodyC.setOnClickListener(this);
         btn_bodyS.setOnClickListener(this);
         btn_body_img.setOnClickListener(this);

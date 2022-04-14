@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_exwrite_cancle"
+            android:id="@+id/btn_exEdit_cancle"
             android:layout_width="15dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -24,41 +24,41 @@
             android:textColor="@color/white"
             android:textSize="13dp"
             android:textStyle="bold"/>
-            <View
-                android:id="@+id/empty"
-                android:layout_width="230dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+        <View
+            android:id="@+id/empty"
+            android:layout_width="230dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
     </LinearLayout>
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="end"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tv_extitle"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:text="운동 제목"/>
-            <EditText
-                android:id="@+id/et_extitle"
-                android:layout_marginLeft="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:hint="제목을 입력해 주세요."/>
-        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_gravity="end"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/tv_exstart"
+            android:id="@+id/tv_exEtitle"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="운동 제목"/>
+        <EditText
+            android:id="@+id/et_exEtitle"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:hint="제목을 입력해 주세요."/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="end"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_exEstart"
             android:textSize="20dp"
             android:textStyle="bold"
             android:layout_marginLeft="10dp"
@@ -67,7 +67,7 @@
             android:layout_weight="1"
             android:text="운동 시작 시간"/>
         <EditText
-            android:id="@+id/et_exstart"
+            android:id="@+id/et_exEstart"
             android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -80,7 +80,7 @@
         android:layout_gravity="end"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/tv_extime"
+            android:id="@+id/tv_exEtime"
             android:textSize="20dp"
             android:textStyle="bold"
             android:layout_marginLeft="10dp"
@@ -89,7 +89,7 @@
             android:layout_weight="1"
             android:text="운동 시간"/>
         <EditText
-            android:id="@+id/et_extime"
+            android:id="@+id/et_exEtime"
             android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -102,7 +102,7 @@
         android:layout_gravity="end"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/tv_excontents"
+            android:id="@+id/tv_exEcontents"
             android:textSize="20dp"
             android:textStyle="bold"
             android:layout_marginLeft="10dp"
@@ -111,7 +111,7 @@
             android:layout_weight="1"
             android:text="운동 내용"/>
         <EditText
-            android:id="@+id/et_excontents"
+            android:id="@+id/et_exEcontents"
             android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="180dp"
@@ -124,13 +124,13 @@
         android:layout_gravity="end"
         android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/btn_exwrite_img"
-        android:layout_width="200dp"
-        android:layout_height="120dp"
-        android:layout_marginLeft="100dp"
-        android:layout_centerHorizontal="true"
-        android:scaleType="fitXY"/>
+        <ImageButton
+            android:id="@+id/btn_exEdit_img"
+            android:layout_width="200dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="100dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -138,7 +138,7 @@
         android:layout_gravity="end"
         android:orientation="vertical">
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_exwrite_save"
+            android:id="@+id/btn_exEdit_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

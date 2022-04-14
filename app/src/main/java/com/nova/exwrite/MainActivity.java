@@ -18,6 +18,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
+import com.nova.exwrite.exercise.ExList;
+import com.nova.exwrite.exercise.ExWrite;
+import com.nova.exwrite.meal.MealList;
+import com.nova.exwrite.meal.MealWrite;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -131,12 +135,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private BottomNavigationView.OnNavigationItemSelectedListener listener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.ic_home:
-                    Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);  // 0
+                    Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent1);
                     break;
                 case R.id.ic_add:
@@ -153,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return false;
         }
     };
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -177,20 +179,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent profileJoin = new Intent(MainActivity.this, Join.class);
                 startActivity(profileJoin);
                 break;
-
         }
     }
-
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.profile_login:
-//                Intent profileLogin = new Intent(MainActivity.this, Login.class);
-//                startActivity(profileLogin);
-//                break;
-//            case R.id.profile_join:
-//                Intent profileJoin = new Intent(MainActivity.this, Join.class);
-//                startActivity(profileJoin);
-//                break;
-//        }
-    }
+}

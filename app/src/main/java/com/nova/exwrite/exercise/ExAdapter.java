@@ -1,9 +1,12 @@
-package com.nova.exwrite;
+package com.nova.exwrite.exercise;
+
+import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -19,17 +22,24 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.nova.exwrite.R;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class ExAdapter extends RecyclerView.Adapter<ExAdapter.CustomViewHolder> {
 
     private ArrayList<ExData> arrayEx;
     Context context;
-    String SharedPreFile = "cstorage_bookData";
-
+    String SharedPreFile = "exData";
+    Gson gson;
+    Type typeExdata = new TypeToken<ArrayList<ExData>>() {
+    }.getType();
     int pos;
 
-    public ExAdapter(Context context, OnListItemSelectedInterface listener, ArrayList<ExData> arrayEx) {
+    public ExAdapter(Context context, ExAdapter.OnListItemSelectedInterface listener, ArrayList<ExData> arrayEx) {
 
         this.arrayEx = arrayEx;
         this.context = context;
@@ -91,6 +101,17 @@ public class ExAdapter extends RecyclerView.Adapter<ExAdapter.CustomViewHolder> 
                             if (i == 0) {
 //                                remove(getLayoutPosition());
                                 pos = getAdapterPosition();
+                                gson = new Gson();
+
+                                SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPreFile, MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                String bookDataD = sharedPreferences.getString("ExData", "");
+
+                                arrayEx = gson.fromJson(bookDataD, typeExdata);
+                                arrayEx.remove(pos);
+                                String sharedExdata = gson.toJson(arrayEx, typeExdata);
+                                editor.putString("ExData", sharedExdata);
+                                editor.commit();
 
 
                                 notifyDataSetChanged();
