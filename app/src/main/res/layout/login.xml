@@ -39,13 +39,13 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="이메일"/>
+            android:text="아이디"/>
         <EditText
             android:id="@+id/login_email"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_weight="1"
-            android:hint="이메일을 입력해 주세요."/>
+            android:hint="아이디를 입력해 주세요."/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_weight="1"
+            android:inputType="textPassword"
             android:hint="비밀번호를 입력해 주세요."/>
     </LinearLayout>
     <LinearLayout

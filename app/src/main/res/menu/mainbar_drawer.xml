@@ -12,5 +12,8 @@
     <item android:id="@+id/mealList"
         android:title="식단 기록"
         app:showAsAction="never"/>
+    <item android:id="@+id/bodyList"
+        android:title="신체 기록"
+        app:showAsAction="never"/>
 
 </menu>

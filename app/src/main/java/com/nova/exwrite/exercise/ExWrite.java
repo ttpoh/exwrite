@@ -77,6 +77,7 @@ public class ExWrite extends AppCompatActivity implements View.OnClickListener{
 
         }
         else if (v.getId() == R.id.btn_exwrite_save) {
+
             String extitle = exTitle.getText().toString();
             String exstart = exStart.getText().toString();
             String extime = exTime.getText().toString();
@@ -143,8 +144,8 @@ public class ExWrite extends AppCompatActivity implements View.OnClickListener{
 
                     img = BitmapFactory.decodeStream(in);
                     in.close();
-
                     btn_ex_img.setImageBitmap(img);
+
                 } catch (Exception e) {
 
                 }

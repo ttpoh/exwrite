@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/mealText"
-        android:title="텍스트">
+        android:title="식사 기록하기">
 
     </item>
 
-    <item
-        android:id="@+id/mealCam"
-        android:title="카메라">
+<!--    <item-->
+<!--        android:id="@+id/mealCam"-->
+<!--        android:title="카메라">-->
 
-    </item>
+<!--    </item>-->
 
-    <item
-        android:id="@+id/mealGal"
-        android:title="갤러리">
+<!--    <item-->
+<!--        android:id="@+id/mealGal"-->
+<!--        android:title="갤러리">-->
 
-    </item>
+<!--    </item>-->
 </menu>

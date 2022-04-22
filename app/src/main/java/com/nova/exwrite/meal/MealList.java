@@ -2,15 +2,19 @@ package com.nova.exwrite.meal;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +28,9 @@ import com.nova.exwrite.R;
 import com.nova.exwrite.exercise.ExAdapter;
 import com.nova.exwrite.exercise.ExData;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -113,21 +120,20 @@ public class MealList extends AppCompatActivity implements View.OnClickListener,
                     Intent mWrite = new Intent(getApplicationContext(), MealWrite.class);  // 0
                     startActivity(mWrite);
                     break;
-                case R.id.mealCam:
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivity(cameraIntent);
-
-
-                    break;
-
-                case R.id.mealGal:
-                    Intent intent = new Intent(Intent.ACTION_PICK);
-                    String[] mimeTypes = {"image/jpeg", "image/png"};
-                    intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-//                    intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                    startActivityForResult(intent, REQUEST_CODE);
-
-                    break;
+//                case R.id.mealCam:
+//                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//                    startActivity(cameraIntent);
+//
+//
+//                    break;
+//
+//                case R.id.mealGal:
+//                    Intent intent = new Intent(Intent.ACTION_PICK);
+//                    intent.setType("image/*");
+//                    intent.setAction(Intent.ACTION_GET_CONTENT);
+//                    startActivityForResult(intent, 101);
+//
+//                    break;
             }
 
             return false;
@@ -135,14 +141,40 @@ public class MealList extends AppCompatActivity implements View.OnClickListener,
 
     };
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri selectedImageUri = data.getData();
-            meal_img.setImageURI(selectedImageUri);
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 101) {
+//            if (resultCode == RESULT_OK) {
+//                Uri fileUri = data.getData();
+//                ContentResolver resolver = getContentResolver();
+//                try {
+//                    InputStream instream = resolver.openInputStream(fileUri);
+//                    Bitmap imgBitmap = BitmapFactory.decodeStream(instream);
+//                    imageView.setImageBitmap(imgBitmap);    // 선택한 이미지 이미지뷰에 셋
+//                    instream.close();   // 스트림 닫아주기
+//                    saveBitmapToJpeg(imgBitmap);    // 내부 저장소에 저장
+//                    Toast.makeText(getApplicationContext(), "파일 불러오기 성공", Toast.LENGTH_SHORT).show();
+//                } catch (Exception e) {
+//                    Toast.makeText(getApplicationContext(), "파일 불러오기 실패", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }
+//    }
+//
+//    public void saveBitmapToJpeg(Bitmap bitmap) {   // 선택한 이미지 내부 저장소에 저장
+//        File tempFile = new File(getCacheDir(), imgName);    // 파일 경로와 이름 넣기
+//        try {
+//            tempFile.createNewFile();   // 자동으로 빈 파일을 생성하기
+//            FileOutputStream out = new FileOutputStream(tempFile);  // 파일을 쓸 수 있는 스트림을 준비하기
+//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);   // compress 함수를 사용해 스트림에 비트맵을 저장하기
+//            out.close();    // 스트림 닫아주기
+//            Toast.makeText(getApplicationContext(), "파일 저장 성공", Toast.LENGTH_SHORT).show();
+//        } catch (Exception e) {
+//            Toast.makeText(getApplicationContext(), "파일 저장 실패", Toast.LENGTH_SHORT).show();
+//        }
+//    }
+
 
 
     @Override

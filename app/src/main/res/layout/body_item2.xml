@@ -7,7 +7,7 @@
     android:layout_height="400dp"
     android:layout_marginLeft="24dp"
     android:layout_marginBottom="10dp"
-    android:background="@drawable/border_ex"
+    android:background="@drawable/border_body"
     android:orientation="vertical">
 
 
@@ -21,35 +21,35 @@
             android:orientation="horizontal"/>
 
         <View
-            android:id="@+id/markEx"
+            android:id="@+id/markBody"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginTop="5dp"
-            android:background="@drawable/run"/>
+            android:background="@drawable/body"/>
 
         <TextView
-            android:id="@+id/view"
+            android:id="@+id/bodyWriter2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:text="운동 기록"
+            android:text="신체 기록"
             android:textSize="25dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"/>
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/btn_exwrite_cancle"-->
-<!--            android:layout_marginRight="40dp"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="left"-->
-<!--            android:layout_weight="1"-->
-<!--            android:backgroundTint="@color/etc_sky"-->
-<!--            android:padding="1dp"-->
-<!--            android:text="X"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="13dp"-->
-<!--            android:textStyle="bold"/>-->
+        <!--        <androidx.appcompat.widget.AppCompatButton-->
+        <!--            android:id="@+id/btn_exwrite_cancle"-->
+        <!--            android:layout_marginRight="40dp"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="left"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:backgroundTint="@color/etc_sky"-->
+        <!--            android:padding="1dp"-->
+        <!--            android:text="X"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:textSize="13dp"-->
+        <!--            android:textStyle="bold"/>-->
 
 
 
@@ -62,23 +62,23 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/extitle"
+            android:id="@+id/bodyweight"
             android:layout_marginLeft="30dp"
             android:layout_width="150dp"
             android:layout_height="40dp"
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="20dp"
-            android:text="제목"/>
+            android:text="체중"/>
         <TextView
-            android:id="@+id/exTitle"
+            android:id="@+id/bodyWeight2"
             android:layout_marginLeft="30dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_weight="1"
             android:textSize="30dp"
             android:textStyle="bold"
-            android:hint="제목"/>
+            android:hint="체중"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,24 +87,24 @@
         android:layout_gravity="end"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/exstart"
+            android:id="@+id/bodymuscle"
             android:layout_marginLeft="10dp"
             android:textStyle="bold"
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="20dp"
-            android:text="시작 시간"/>
+            android:text="골격근량"/>
 
         <TextView
-            android:id="@+id/exStart"
+            android:id="@+id/bodyMuscle2"
             android:layout_marginLeft="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:hint="시작 시간을 입력해 주세요."/>
+            android:hint="골격근량을 입력해 주세요."/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -112,24 +112,24 @@
         android:layout_gravity="end"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/extime"
+            android:id="@+id/bodyfat"
             android:layout_marginLeft="10dp"
             android:textStyle="bold"
             android:layout_width="170dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="20dp"
-            android:text="운동 시간"/>
+            android:text="체지방률"/>
 
         <TextView
-            android:id="@+id/exTime"
+            android:id="@+id/bodyFat2"
             android:layout_marginLeft="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:hint="운동한 시간을 입력해 주세요."/>
+            android:hint="체지방률을 입력해 주세요."/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -137,7 +137,7 @@
         android:layout_gravity="end"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/exCon"
+            android:id="@+id/bodyCon"
             android:layout_marginLeft="10dp"
             android:textStyle="bold"
             android:textAlignment="center"
@@ -147,7 +147,7 @@
             android:textSize="20dp"
             android:text="내용"/>
         <TextView
-            android:id="@+id/exContents"
+            android:id="@+id/bodyContents2"
             android:layout_marginLeft="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -164,7 +164,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/btn_exwrite_img"
+            android:id="@+id/btn_bodywrite_img2"
             android:layout_width="170dp"
             android:layout_height="140dp"
             android:layout_marginLeft="95dp"

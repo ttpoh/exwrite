@@ -6,17 +6,25 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <LinearLayout android:id="@+id/meal_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1" />
 
+    <TextView
+        android:id="@+id/exListTitle"
+        android:background="@drawable/border_meal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="49dp"
+        android:gravity="center"
+        android:text="MEAL"
+        android:textSize="30sp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/meal_rv"
-        android:layout_width="407dp"
-        android:layout_height="358dp"
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
         android:layout_weight="1"
         android:scrollbarFadeDuration="0"
         android:scrollbarSize="5dp"

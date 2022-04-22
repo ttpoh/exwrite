@@ -18,10 +18,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
+import com.nova.exwrite.bodywrite.BodyList;
+import com.nova.exwrite.bodywrite.BodyWrite;
+import com.nova.exwrite.bodywrite.server.BodyList2;
+import com.nova.exwrite.bodywrite.server.BodyWrite2;
 import com.nova.exwrite.exercise.ExList;
 import com.nova.exwrite.exercise.ExWrite;
 import com.nova.exwrite.meal.MealList;
 import com.nova.exwrite.meal.MealWrite;
+import com.nova.exwrite.user.Join;
+import com.nova.exwrite.user.Login;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -97,6 +103,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(intent);
 //                    drawerLayout.closeDrawers();
                 }
+                else if (item.getItemId() == R.id.bodyList) {
+                    Intent intent = new Intent(MainActivity.this, BodyList2.class);
+                    startActivity(intent);
+//                    drawerLayout.closeDrawers();
+                }
                 return true;
             }
         });
@@ -168,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(mealWrite);
                 break;
             case R.id.body_wr:
-                Intent bodyWrite = new Intent(MainActivity.this, BodyWrite.class);
+                Intent bodyWrite = new Intent(MainActivity.this, BodyWrite2.class);
                 startActivity(bodyWrite);
                 break;
             case R.id.profile_login:
