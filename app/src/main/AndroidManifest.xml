@@ -57,6 +57,18 @@
             android:exported="false">
         </activity>
         <activity
+            android:name=".meal.logout.MealWriteOut"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".meal.logout.MealListOut"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".meal.logout.MealEditOut"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".meal.MealWrite"
             android:exported="false">
         </activity>
@@ -67,6 +79,18 @@
 
         <activity
             android:name=".meal.MealList"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".exercise.logout.ExEditOut"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".exercise.logout.ExWriteOut"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".exercise.logout.ExListOut"
             android:exported="false">
         </activity>
         <activity

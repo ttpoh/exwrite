@@ -1,11 +1,10 @@
-package com.nova.exwrite.exercise;
+package com.nova.exwrite.exercise.logout;
 
 import java.io.Serializable;
 
-public class ExData implements Serializable {
+public class ExDataOut implements Serializable {
 
-    private int exNo;
-    private String exid;
+//    private int exNo;
     private String extitle;
     private String exstart;
     private String extime;
@@ -13,25 +12,23 @@ public class ExData implements Serializable {
     private byte[] ex_pic;
 
 
-    public ExData(int no, String id, String extitle, String exstart, String extime, String excontents) {
+    public ExDataOut(String extitle, String exstart, String extime, String excontents,byte[] ex_pic) {
 
-        this.exNo = no;
-        this.exid = id;
         this.extitle = extitle;
         this.exstart = exstart;
         this.extime = extime;
         this.excontents = excontents;
-//        this.ex_pic = exImg;
+        this.ex_pic = ex_pic;
     }
-    public int getExNumber() {
-
-        return exNo;
-    }
-
-    public void setExNumber(int no) {
-
-        this.exNo = no;
-    }
+//    public int getExNumber() {
+//
+//        return exNo;
+//    }
+//
+//    public void setExNumber(int no) {
+//
+//        this.exNo = no;
+//    }
 
     public byte[] getEx_pic() {
 
@@ -41,15 +38,6 @@ public class ExData implements Serializable {
     public void setEx_pic(byte[] ex_pic) {
 
         this.ex_pic = ex_pic;
-    }
-    public String getExId() {
-
-        return exid;
-    }
-
-    public void setExId(String exid) {
-
-        this.exid = exid;
     }
 
     public String getExtitle() {

@@ -1,5 +1,6 @@
 package com.nova.exwrite.meal;
 
+import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
@@ -20,29 +21,28 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.R;
 import com.nova.exwrite.exercise.ExEdit;
+import com.nova.exwrite.exercise.ExListD;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.CustomViewHolder> {
 
-private ArrayList<mealData> arraym;
+private ArrayList<MealData> arraym;
         Context context;
-        String SharedPreFile = "mData";
-        Gson gson;
-        Type typeMdata = new TypeToken<ArrayList<mealData>>() {
-        }.getType();
         int pos;
-
-public MealAdapter(Context context, MealAdapter.OnListItemSelectedInterface listener, ArrayList<mealData> arraym) {
+    RequestQueue queue;
+public MealAdapter(Context context, ArrayList<MealData> arraym) {
 
         this.arraym = arraym;
         this.context = context;
-        this.mListener = listener;
         }
 
 
@@ -58,7 +58,7 @@ public class CustomViewHolder extends RecyclerView.ViewHolder {
     protected ImageView mImg;
     protected TextView MTitle, MStart, MTime, MContents;
     protected TextView mTitle, mStart, mTime, mContents;
-
+    int mealNumber;
 
     public CustomViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -78,13 +78,23 @@ public class CustomViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 pos = getAdapterPosition();
-                mListener.onItemSelected(v, getAdapterPosition());
+                mealNumber = arraym.get(pos).getMealNumber();
+                String mealtitle = arraym.get(pos).getMtitle();
+                String mealstart = arraym.get(pos).getMtime();
+                String mealtime = arraym.get(pos).getMamount();
+                String mealcontents = arraym.get(pos).getMcontents();
+//                    String bodycontents = arrayBody.get(pos).getBodycontents();
                 if (pos != RecyclerView.NO_POSITION) {
-
-                    Intent intent = new Intent(context, MealEdit.class);
-                    intent.putExtra("position1", pos);
-                    (context).startActivity(intent);
+                    Intent edit_meal = new Intent(context, MealEdit.class);
+                    edit_meal.putExtra("pos", pos);
+                    edit_meal.putExtra("eMealN", mealNumber);
+                    edit_meal.putExtra("eMealT", mealtitle);
+                    edit_meal.putExtra("eMeals", mealstart);
+                    edit_meal.putExtra("eMealt", mealtime);
+                    edit_meal.putExtra("eMealc", mealcontents);
+                    (context).startActivity(edit_meal);
                 }
+
 
             }
         });
@@ -103,22 +113,19 @@ public class CustomViewHolder extends RecyclerView.ViewHolder {
                         if (i == 0) {
 //                                remove(getLayoutPosition());
                             pos = getAdapterPosition();
-                            gson = new Gson();
+                            mealNumber = arraym.get(pos).getMealNumber();
+                            Response.Listener<String> responseListener = new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    Log.d(TAG, "db 삭제 후");
 
-                            SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPreFile, MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            String sharedMdata = sharedPreferences.getString("mealData", "");
-
-                            arraym = gson.fromJson(sharedMdata, typeMdata);
-                            arraym.remove(pos);
-                            String sharedM = gson.toJson(arraym, typeMdata);
-                            editor.putString("mealData", sharedM);
-                            editor.commit();
-
-
-                            notifyDataSetChanged();
-
-
+                                    arraym.remove(pos);
+                                    notifyDataSetChanged();
+                                }
+                            };
+                            MealListD mealListD = new MealListD(Integer.toString(mealNumber), responseListener);
+                            RequestQueue queue = Volley.newRequestQueue(context);
+                            queue.add(mealListD);
                         } else if (i == 1) {
 
                             Toast.makeText(context, "아니오", Toast.LENGTH_SHORT).show();
@@ -133,15 +140,15 @@ public class CustomViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void onBind(mealData item) {
+    public void onBind(MealData item) {
         Log.e("바인드데이터", "데이터");
 
 
-        byte[] arr = item.getMeal_pic();
-        Bitmap image = BitmapFactory.decodeByteArray(arr, 0, arr.length);
+//        byte[] arr = item.getMeal_pic();
+//        Bitmap image = BitmapFactory.decodeByteArray(arr, 0, arr.length);
 
 
-        mImg.setImageBitmap(image);
+//        mImg.setImageBitmap(image);
         mTitle.setText(item.getMtitle());
         mStart.setText(item.getMtime());
         mTime.setText(item.getMamount());
@@ -168,7 +175,7 @@ public class CustomViewHolder extends RecyclerView.ViewHolder {
 
     @Override
     public int getItemCount() {
-        Log.d("아이템수", String.valueOf(arraym.size()));
+//        Log.d("아이템수", String.valueOf(arraym.size()));
         return (null != arraym ? arraym.size() : 0);
     }
 

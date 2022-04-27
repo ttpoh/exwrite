@@ -1,9 +1,9 @@
-package com.nova.exwrite.meal;
+package com.nova.exwrite.meal.logout;
 
 import java.io.Serializable;
 
-public class mealData implements Serializable {
-
+public class MealDataOut implements Serializable {
+    private int mealNo;
     private String mtitle;
     private String mtime;
     private String mamount;
@@ -11,15 +11,23 @@ public class mealData implements Serializable {
     private byte[] meal_pic;
 
 
-    public mealData(String mtitle, String mtime, String mamount, String mcontents,byte[] meal_pic) {
-
-        this.mtitle = mtitle;
-        this.mamount = mamount;
+    public MealDataOut(String mname, String mtime, String mamount, String mmemo,byte[] meal_pic) {
+//        this.mealNo = no;
+        this.mtitle = mname;
         this.mtime = mtime;
-        this.mcontents = mcontents;
+        this.mamount = mamount;
+        this.mcontents = mmemo;
         this.meal_pic = meal_pic;
     }
+    public int getMealNumber() {
 
+        return mealNo;
+    }
+
+    public void setMealNumber(int no) {
+
+        this.mealNo = no;
+    }
 
     public byte[] getMeal_pic() {
 

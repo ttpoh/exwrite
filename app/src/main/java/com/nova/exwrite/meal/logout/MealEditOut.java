@@ -1,4 +1,4 @@
-package com.nova.exwrite.meal;
+package com.nova.exwrite.meal.logout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,26 +22,32 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.MainActivity;
 import com.nova.exwrite.R;
-import com.nova.exwrite.exercise.ExEdit;
-import com.nova.exwrite.exercise.ExList;
-import com.nova.exwrite.exercise.ExUpdate;
+import com.nova.exwrite.exercise.logout.ExDataOut;
+import com.nova.exwrite.exercise.logout.ExListOut;
+import com.nova.exwrite.meal.MealEditR;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class MealEdit extends AppCompatActivity implements View.OnClickListener{
+public class MealEditOut extends AppCompatActivity implements View.OnClickListener{
     EditText mETitle, mEtime, mEamount, mEMemo;
     Button btn_mEC, btn_mES;
     ImageButton btn_mE_img;
     Bitmap sendBitmap, img;
     private static final int REQUEST_CODE = 0;
-    ArrayList<MealData> mEdataItem;
+    ArrayList<MealDataOut> mEdataItem;
+    Gson gson;
 
+    String sharedBody = "MDataOut";
+    SharedPreferences sharedPreferences;
+
+    Type typeMEdata = new TypeToken<ArrayList<MealDataOut>>() {
+    }.getType();
     private Intent intent;
-    int pos, mnum;
-    RequestQueue queue;
+    int pos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,29 +64,41 @@ public class MealEdit extends AppCompatActivity implements View.OnClickListener{
         btn_mE_img = findViewById(R.id.mealEditImg);
 
 
+        sharedPreferences = getSharedPreferences(sharedBody, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        gson = new Gson();
 
+        String mealdata = sharedPreferences.getString("MDataOut", "");
+        Log.d("sharedReceive",mealdata);
+        if (mealdata.equals("")) {
+            mEdataItem = new ArrayList<MealDataOut>();
+            String shared_mEdata = gson.toJson(mEdataItem, typeMEdata);
+            editor.putString("MDataOut", shared_mEdata);
+            editor.commit();
+        } else {
 
-//        byte[] arr = mEdataItem.get(pos).getMeal_pic();
-
-
-
-        mETitle.setText(intent.getStringExtra("eMealT"));
-        mEtime.setText(intent.getStringExtra("eMeals"));
-        mEamount.setText(intent.getStringExtra("eMealt"));
-        mEMemo.setText(intent.getStringExtra("eMealc"));
+            mEdataItem = gson.fromJson(mealdata, typeMEdata);
+        }
 
         pos = intent.getIntExtra("position1", -1);
 
-        mnum = intent.getIntExtra("eMealN", +0);
-        queue = Volley.newRequestQueue(this);
+        byte[] arr = mEdataItem.get(pos).getMeal_pic();
+        img = BitmapFactory.decodeByteArray(arr, 0, arr.length);
+
+        btn_mE_img.setImageBitmap(img);
+        mETitle.setText(mEdataItem.get(pos).getMtitle());
+        mEtime.setText(mEdataItem.get(pos).getMtime());
+        mEamount.setText(mEdataItem.get(pos).getMamount());
+        mEMemo.setText(mEdataItem.get(pos).getMcontents());
+
 
         btn_mEC = (Button) findViewById(R.id.btn_mEdit_cancle);
         btn_mES = (Button) findViewById(R.id.btn_mEdit_save);
-//        btn_exE_img = (ImageButton) findViewById(R.id.btn_exEdit_img);
+        btn_mE_img = (ImageButton) findViewById(R.id.mealEditImg);
 
         btn_mEC.setOnClickListener(this);
         btn_mES.setOnClickListener(this);
-//        btn_mE_img.setOnClickListener(this);
+        btn_mE_img.setOnClickListener(this);
 
     }
 
@@ -102,21 +120,44 @@ public class MealEdit extends AppCompatActivity implements View.OnClickListener{
             String mamount = mEamount.getText().toString();
             String mmemo = mEMemo.getText().toString();
 
-            Response.Listener<String> responseListener = new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.d("편집 후", response);
-//            bodyData = new BodyData2(bodyweight1, bodyweight2, bodymuscle, bodyfat);
-//            bodydata2.set(pos, bodyData);
+            sendBitmap = BitmapFactory.decodeResource(getResources(), R.id.btn_exEdit_img);
+            sendBitmap = ((BitmapDrawable) btn_mE_img.getDrawable()).getBitmap();
 
-                    Intent intent = new Intent(getApplicationContext(), MealList.class);
-                    startActivity(intent);
-                    finish();
-                }
-            };
-            MealEditR mealEdit = new MealEditR(Integer.toString(mnum), mname, mtime, mamount, mmemo, responseListener);
-            RequestQueue queue = Volley.newRequestQueue(MealEdit.this);
-            queue.add(mealEdit);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+            float scale = (float) (1024 / (float) sendBitmap.getWidth());
+            int image_w = (int) (sendBitmap.getWidth() * scale);
+            int image_h = (int) (sendBitmap.getHeight() * scale);
+            Bitmap resize = Bitmap.createScaledBitmap(sendBitmap, image_w, image_h, true);
+            resize.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] mImg = stream.toByteArray();
+
+            gson = new Gson();
+            MealDataOut mealData = new MealDataOut(mname, mtime, mamount, mmemo,mImg);
+
+            String meal_data = sharedPreferences.getString("MDataOut", "");
+            Log.d("shared 업로드 내용", meal_data);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            if (meal_data.equals("")) {
+
+                mEdataItem = new ArrayList<MealDataOut>();
+                String addMdata = gson.toJson(mEdataItem, typeMEdata);
+                editor.putString("MDataOut", addMdata);
+                editor.commit();
+            } else {
+
+                mEdataItem = gson.fromJson(meal_data, typeMEdata);
+            }
+
+            mEdataItem.set(pos, mealData);
+            String sharedUpEex = gson.toJson(mEdataItem, typeMEdata);
+            editor.putString("MDataOut", sharedUpEex);
+            editor.commit();
+
+            Intent intent = new Intent(getApplicationContext(), MealListOut.class);
+            startActivity(intent);
+            finish();
         }
         else if (v.getId() == R.id.mealEditImg) {
             Intent intent = new Intent();

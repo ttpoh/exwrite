@@ -1,6 +1,7 @@
 package com.nova.exwrite.user;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,8 +21,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
-EditText loginmail, loginpw;
-Button btnLogin, btnLoginC;
+    EditText loginmail, loginpw;
+    Button btnLogin, btnLoginC;
+    String sharedBody = "LoginID";
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,19 +57,21 @@ Button btnLogin, btnLoginC;
                 @Override
                 public void onResponse(String response) {
                     try {
-                        // TODO : 인코딩 문제때문에 한글 DB인 경우 로그인 불가
                         System.out.println("hongchul" + response);
                         JSONObject jsonObject = new JSONObject(response);
                         boolean success = jsonObject.getBoolean("success");
                         if (success) { // 로그인에 성공한 경우
-                            String loginEmail = jsonObject.getString("id");
-                            String loginPw = jsonObject.getString("pw");
 
+                            String loginEmail = jsonObject.getString("id");
+
+                            sharedPreferences = getSharedPreferences(sharedBody, MODE_PRIVATE);
+                            sharedPreferences.getString("loginID", loginEmail);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("loginID", loginEmail);
+                            editor.commit();
                             Toast.makeText(getApplicationContext(), "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Login.this, MainActivity.class);
-                            Log.d("로그인아이디",loginEmail);
-                            intent.putExtra("id", loginEmail);
-                            intent.putExtra("pw", loginPw);
+                            intent.putExtra("loginID", loginEmail);
                             startActivity(intent);
                         } else { // 로그인에 실패한 경우
                             Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();

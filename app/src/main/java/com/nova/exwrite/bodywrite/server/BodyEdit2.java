@@ -117,8 +117,6 @@ public class BodyEdit2 extends AppCompatActivity implements View.OnClickListener
                 @Override
                 public void onResponse(String response) {
                     Log.d("편집 후", response);
-//            bodyData = new BodyData2(bodyweight1, bodyweight2, bodymuscle, bodyfat);
-//            bodydata2.set(pos, bodyData);
 
             Intent intent = new Intent(getApplicationContext(), BodyList2.class);
             startActivity(intent);

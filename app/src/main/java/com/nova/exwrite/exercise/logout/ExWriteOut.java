@@ -1,4 +1,4 @@
-package com.nova.exwrite.exercise;
+package com.nova.exwrite.exercise.logout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,9 +22,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.MainActivity;
 import com.nova.exwrite.R;
+import com.nova.exwrite.bodywrite.BodyData;
+import com.nova.exwrite.bodywrite.BodyList;
 import com.nova.exwrite.bodywrite.server.BodyList2;
 import com.nova.exwrite.bodywrite.server.BodyRequest2;
 import com.nova.exwrite.bodywrite.server.BodyWrite2;
+import com.nova.exwrite.exercise.logout.ExDataOut;
+import com.nova.exwrite.exercise.logout.ExListOut;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,19 +38,20 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class ExWrite extends AppCompatActivity implements View.OnClickListener{
+public class ExWriteOut extends AppCompatActivity implements View.OnClickListener{
     EditText exTitle, exStart, exTime, exContents;
-    TextView exWriter;
     Button btn_exC, btn_exS;
     ImageButton btn_ex_img;
     Bitmap sendBitmap, img;
     private static final int REQUEST_CODE = 0;
 
-    String sharedBody = "LoginID";
-    SharedPreferences sharedPreferences;
+    Gson gson;
+    ArrayList<ExDataOut> exdataItem;
 
-    RequestQueue queue;
-    String loginID;
+    String sharedBody = "ExDataOut";
+    SharedPreferences sharedPreferences;
+    Type arraylist_exData = new TypeToken<ArrayList<ExDataOut>>() {
+    }.getType();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +59,6 @@ public class ExWrite extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ex_write);
 
-        sharedPreferences = getSharedPreferences(sharedBody, MODE_PRIVATE);
-        SharedPreferences prefs =getSharedPreferences("LoginID", MODE_PRIVATE);
-        loginID = prefs.getString("loginID", "0"); //키값, 디폴트값
-
-        exWriter = (TextView) findViewById(R.id.exWriter);
         exTitle = (EditText) findViewById(R.id.et_extitle);
         exStart = (EditText) findViewById(R.id.et_exstart);
         exTime = (EditText) findViewById(R.id.et_extime);
@@ -68,6 +67,8 @@ public class ExWrite extends AppCompatActivity implements View.OnClickListener{
         btn_exC = (Button) findViewById(R.id.btn_exwrite_cancle);
         btn_exS = (Button) findViewById(R.id.btn_exwrite_save);
         btn_ex_img = (ImageButton) findViewById(R.id.btn_exwrite_img);
+
+        sharedPreferences = getSharedPreferences(sharedBody, MODE_PRIVATE);
 
         btn_exC.setOnClickListener(this);
         btn_exS.setOnClickListener(this);
@@ -89,36 +90,52 @@ public class ExWrite extends AppCompatActivity implements View.OnClickListener{
         }
         else if (v.getId() == R.id.btn_exwrite_save) {
 
-            String extitle2 = exTitle.getText().toString();
+
+            String extitle = exTitle.getText().toString();
             String exstart = exStart.getText().toString();
             String extime = exTime.getText().toString();
             String excontents = exContents.getText().toString();
 
-            System.out.println("loginid" + loginID);
-            Response.Listener<String> responseListener = new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        System.out.println("hongchul" + response);
-                        JSONObject jsonObject = new JSONObject(response);
-                        boolean success = jsonObject.getBoolean("success");
-                        if (success) {
+            sendBitmap = BitmapFactory.decodeResource(getResources(), R.id.btn_bodywrite_img);
+            sendBitmap = ((BitmapDrawable) btn_ex_img.getDrawable()).getBitmap();
 
-                            Intent intent = new Intent(ExWrite.this, ExList.class);//
-                            startActivity(intent);
-                            finish();
-                        } else { // 로그인에 실패한 경우
-                            Toast.makeText(getApplicationContext(), "저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            ExWrReq exWrReq = new ExWrReq(loginID, extitle2, exstart, extime, excontents, responseListener);
-            RequestQueue queue = Volley.newRequestQueue(ExWrite.this);
-            queue.add(exWrReq);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+            float scale = (float) (1024 / (float) sendBitmap.getWidth());
+            int image_w = (int) (sendBitmap.getWidth() * scale);
+            int image_h = (int) (sendBitmap.getHeight() * scale);
+            Bitmap resize = Bitmap.createScaledBitmap(sendBitmap, image_w, image_h, true);
+            resize.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] exImg = stream.toByteArray();
+
+            gson = new Gson();
+            ExDataOut exData = new ExDataOut(extitle, exstart, extime, excontents,exImg);
+
+            String ex_data = sharedPreferences.getString("ExDataOut", "");
+            Log.d("shared 업로드 내용", ex_data);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            if (ex_data.equals("")) {
+
+                exdataItem = new ArrayList<ExDataOut>();
+                String addExdata = gson.toJson(exdataItem, arraylist_exData);
+                editor.putString("ExDataOut", addExdata);
+                editor.commit();
+            } else {
+
+                exdataItem = gson.fromJson(ex_data, arraylist_exData);
+            }
+
+            exdataItem.add(exData);
+
+            String arraylist = gson.toJson(exdataItem, arraylist_exData);
+            Log.d("item",String.valueOf(exdataItem.size()));
+            editor.putString("ExDataOut", arraylist);
+            editor.commit();
+
+            Intent intent = new Intent(getApplicationContext(), ExListOut.class);
+            startActivity(intent);
+            finish();
 
         }
         else if (v.getId() == R.id.btn_exwrite_img) {

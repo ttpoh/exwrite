@@ -44,11 +44,9 @@ public class BodyList2 extends AppCompatActivity implements View.OnClickListener
     RecyclerView recyclerView;
     private BodyAdapter2 bodyAdapter2;
 
-//    private ArrayList<BodyData2> bodydata2;
-    Gson gson = new GsonBuilder().create();
+
     final Context context = this;
-    Type typeBodydata = new TypeToken<ArrayList<BodyData2>>() {
-    }.getType();
+
 
     RequestQueue queue;
 
@@ -73,29 +71,6 @@ public class BodyList2 extends AppCompatActivity implements View.OnClickListener
         Add_body_back.setOnClickListener(this);
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//
-//
-//        String body_data = sharedPreferences.getString("BodyData", "");
-//        if (body_data.equals("")) {
-//            bodydataItem = new ArrayList<BodyData2>();
-//            String book_array = gson.toJson(bodydataItem, typeBodydata);
-//            editor.putString("bookData", book_array);
-//            editor.commit();
-//        } else {
-//
-//            bodydataItem = gson.fromJson(body_data, typeBodydata);
-//        }
-//
-//        Log.d(TAG, "arraybook : " + "사이즈" + bodydataItem.size());
-
-//
-//
-//    }
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_bodylist_add2) {

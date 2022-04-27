@@ -9,15 +9,28 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.R;
+import com.nova.exwrite.bodywrite.server.BodyAdapter2;
+import com.nova.exwrite.bodywrite.server.BodyData2;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -26,89 +39,104 @@ public class ExList extends AppCompatActivity implements View.OnClickListener, E
 
     RecyclerView recyclerView;
     private ExAdapter exAdapter;
-    String sharedEx = "exData";
 
     private ArrayList<ExData> exdataItem;
-    private ExAdapter adapter;
-    Gson gson = new GsonBuilder().create();
-    final Context context = this;
-    Type typeExdata = new TypeToken<ArrayList<ExData>>() {
-    }.getType();
 
+    final Context context = this;
+
+    String sharedBody = "LoginID";
     SharedPreferences sharedPreferences;
+
+    RequestQueue queue;
+    String loginID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences(sharedBody, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("LoginID", MODE_PRIVATE);
+        loginID = prefs.getString("loginID", "0"); //키값, 디폴트값
+
+
+
+        Log.d("아이디가 null이 아닐 때", "2");
         setContentView(R.layout.exlist);
+        Button Add_ex_back = (Button) findViewById(R.id.btn_exlist_back);
+        Add_ex_back.setOnClickListener(this);
+        Button Add_ex = (Button) findViewById(R.id.btn_exlist_add);
+        Add_ex.setOnClickListener(this);
+//        }
+
 
         recyclerView = findViewById(R.id.ex_rv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        sharedPreferences = getSharedPreferences(sharedEx, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        queue = Volley.newRequestQueue(this);
+        exRecord();
 
 
-        String shared_exdata = sharedPreferences.getString("ExData", "");
-        if (shared_exdata.equals("")) {
-            exdataItem = new ArrayList<ExData>();
-            String sharedExdata = gson.toJson(exdataItem, typeExdata);
-            editor.putString("ExData", sharedExdata);
-            editor.commit();
-        } else {
 
-            exdataItem = gson.fromJson(shared_exdata, typeExdata);
-        }
-
-        Log.d(TAG, "arrayconcert : " + "사이즈" + exdataItem.size());
-        exAdapter = new ExAdapter(context, this, exdataItem);
+        exAdapter = new ExAdapter(context, exdataItem);
         recyclerView.setAdapter(exAdapter);
 
-        Button Add_ex = (Button) findViewById(R.id.btn_exlist_add);
-        Button Add_ex_back = (Button) findViewById(R.id.btn_exlist_back);
-
-        Add_ex.setOnClickListener(this);
-        Add_ex_back.setOnClickListener(this);
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-
-        String ex_Edata = sharedPreferences.getString("ExData", "");
-        if (ex_Edata.equals("")) {
-            exdataItem = new ArrayList<ExData>();
-            String book_array = gson.toJson(exdataItem, typeExdata);
-            editor.putString("bookData", book_array);
-            editor.commit();
-        } else {
-
-            exdataItem = gson.fromJson(ex_Edata, typeExdata);
-        }
-
-        Log.d(TAG, "arraybook : " + "사이즈" + exdataItem.size());
-        adapter = new ExAdapter(context, this, exdataItem);
-        recyclerView.setAdapter(adapter);
-
-
-    }
+//    public void LoginExRecord() {
+//        Response.Listener<String> responseListener = new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                try {
+//                    System.out.println("hongchul" + response);
+//                    JSONObject jsonObject = new JSONObject(response);
+//                    boolean success = jsonObject.getBoolean("success");
+//                    if (success) {
+//
+//                        Intent intent = new Intent(ExWrite.this, ExList.class);//
+//                        startActivity(intent);
+//                        finish();
+//                    } else { // 로그인에 실패한 경우
+//                        Toast.makeText(getApplicationContext(), "저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        };
+//        ExListReq exListReq = new ExListReq(loginID);
+//        RequestQueue queue = Volley.newRequestQueue(ExList.this);
+//        queue.add(exListReq);
+//
+//
+//
+//    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        String ex_Edata = sharedPreferences.getString("ExData", "");
+//        if (ex_Edata.equals("")) {
+//            exdataItem = new ArrayList<ExData>();
+//            String book_array = gson.toJson(exdataItem, typeExdata);
+//            editor.putString("bookData", book_array);
+//            editor.commit();
+//        } else {
+//            exdataItem = gson.fromJson(ex_Edata, typeExdata);
+//        }
+//        Log.d(TAG, "arraybook : " + "사이즈" + exdataItem.size());
+//        adapter = new ExAdapter(context, this, exdataItem);
+//        recyclerView.setAdapter(adapter);
+//    }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_exlist_add) {
+        if (v.getId() == R.id.btn_exlist_back || v.getId() == R.id.btn_exlist_logout_back) {
+            finish();
+        } else if (v.getId() == R.id.btn_exlist_add) {
             Intent intent = new Intent(getApplicationContext(), ExWrite.class);
             startActivity(intent);
             finish();
-
-        } else if (v.getId() == R.id.btn_exlist_back) {
-
-            finish();
-
         }
     }
 
@@ -116,5 +144,55 @@ public class ExList extends AppCompatActivity implements View.OnClickListener, E
     public void onItemSelected(View v, int position) {
         ExAdapter.CustomViewHolder viewHolder = (ExAdapter.CustomViewHolder) recyclerView.findViewHolderForAdapterPosition(position);
 
+    }
+
+    public void exRecord() {
+//        String URL = "http://solution12441.dothome.co.kr/exList/exlist.php";
+
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("ex", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray arraynick = jsonObject.getJSONArray("result");
+                    ArrayList<ExData> exdata = new ArrayList<ExData>();
+
+                    for (int i = 0, j = arraynick.length(); i < j; i++) {
+                        JSONObject obj = arraynick.getJSONObject(i);
+
+                        obj.getInt("no");
+                        obj.getString("id");
+                        obj.getString("title");
+                        obj.getString("start_time");
+                        obj.getString("ex_time");
+                        obj.getString("contents");
+//                        obj.getString("memo");
+//                       obj.getString("img_path");
+
+                        ExData exData = new ExData(obj.getInt("no"), obj.getString("id"), obj.getString("title"), obj.getString("start_time"), obj.getString("ex_time"), obj.getString("contents"));
+//                        bodyData2.setBodyNickname(obj.getString("nickname"));
+//                        bodyData2.setBodyweight(obj.getString("weight"));
+//                        bodyData2.setBodymuscle(obj.getString("muscle"));
+//                        bodyData2.setBodyfat(obj.getString("fat"));
+//                        bodyData2.setBodyweight(obj.getString("memo"));
+//                        bodyData2.setBodyweight(obj.getString("weight"));
+
+                        exdata.add(exData);
+
+                    }
+
+                    exAdapter = new ExAdapter(context, exdata);
+                    recyclerView.setAdapter(exAdapter);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        ExListReq exListReq = new ExListReq(loginID, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(ExList.this);
+        queue.add(exListReq);
     }
 }

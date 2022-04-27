@@ -40,8 +40,7 @@ public class BodyWrite2 extends AppCompatActivity implements View.OnClickListene
     ImageButton btn_body_img;
     Bitmap sendBitmap, img;
     private static final int REQUEST_CODE = 0;
-    Gson gson;
-    ArrayList<BodyData2> bodydataItem;
+
 
 
 
@@ -86,7 +85,6 @@ public class BodyWrite2 extends AppCompatActivity implements View.OnClickListene
             String bodyfat = bodyFat.getText().toString();
             String bodymemo = bodyContents.getText().toString();
 
-//            BodyData2 bodyData = new BodyData2(bodywriter, bodyweight, bodymuscle, bodyfat, bodymemo);
 
             Response.Listener<String> responseListener = new Response.Listener<String>() {
                 @Override

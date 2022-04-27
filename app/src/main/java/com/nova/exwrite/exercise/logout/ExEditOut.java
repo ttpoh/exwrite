@@ -1,4 +1,4 @@
-package com.nova.exwrite.exercise;
+package com.nova.exwrite.exercise.logout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,27 +22,33 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.MainActivity;
 import com.nova.exwrite.R;
-import com.nova.exwrite.bodywrite.server.BodyEUpdate;
-import com.nova.exwrite.bodywrite.server.BodyEdit2;
-import com.nova.exwrite.bodywrite.server.BodyList2;
+import com.nova.exwrite.bodywrite.BodyData;
+import com.nova.exwrite.exercise.ExData;
+import com.nova.exwrite.exercise.ExEdit;
+import com.nova.exwrite.exercise.ExList;
+import com.nova.exwrite.exercise.ExUpdate;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class ExEdit extends AppCompatActivity implements View.OnClickListener{
+public class ExEditOut extends AppCompatActivity implements View.OnClickListener{
     EditText exETitle, exEStart, exETime, exEContents;
     Button btn_exEC, btn_exES;
     ImageButton btn_exE_img;
     Bitmap sendBitmap, img;
     private static final int REQUEST_CODE = 0;
     Gson gson;
-    ArrayList<ExData> exEdataItem;
+    ArrayList<ExDataOut> exEdataItem;
 
+    String sharedBody = "ExDataOut";
+    SharedPreferences sharedPreferences;
+
+    Type typeExEdata = new TypeToken<ArrayList<ExDataOut>>() {
+    }.getType();
     private Intent intent;
     int pos, exNum;
-    RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,31 +62,46 @@ public class ExEdit extends AppCompatActivity implements View.OnClickListener{
         exEStart = (EditText) findViewById(R.id.et_exEstart);
         exETime = (EditText) findViewById(R.id.et_exEtime);
         exEContents = (EditText) findViewById(R.id.et_exEcontents);
-//        btn_exE_img = findViewById(R.id.btn_exEdit_img);
+        btn_exE_img = findViewById(R.id.btn_exEdit_img);
 
 
-        exETitle.setText(intent.getStringExtra("eExT"));
-        exEStart.setText(intent.getStringExtra("eExs"));
-        exETime.setText(intent.getStringExtra("eExt"));
-        exEContents.setText(intent.getStringExtra("eExc"));
+        sharedPreferences = getSharedPreferences(sharedBody, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        gson = new Gson();
 
-        pos = intent.getIntExtra("pos", +0);
+        String exdata = sharedPreferences.getString("ExDataOut", "");
+        Log.d("sharedReceive",exdata);
+        if (exdata.equals("")) {
+            exEdataItem = new ArrayList<ExDataOut>();
+            String shared_bodyEdata = gson.toJson(exEdataItem, typeExEdata);
+            editor.putString("ExDataOut", shared_bodyEdata);
+            editor.commit();
+        } else {
 
-        exNum = intent.getIntExtra("eExN", +0);
+            exEdataItem = gson.fromJson(exdata, typeExEdata);
+        }
 
-        queue = Volley.newRequestQueue(this);
+        pos = intent.getIntExtra("position1", -1);
 
+        byte[] arr = exEdataItem.get(pos).getEx_pic();
+        img = BitmapFactory.decodeByteArray(arr, 0, arr.length);
+
+        btn_exE_img.setImageBitmap(img);
+        exETitle.setText(exEdataItem.get(pos).getExtitle());
+        exEStart.setText(exEdataItem.get(pos).getExstart());
+        exETime.setText(exEdataItem.get(pos).getExtime());
+        exEContents.setText(exEdataItem.get(pos).getExcontents());
 
 
         btn_exEC = (Button) findViewById(R.id.btn_exEdit_cancle);
         btn_exES = (Button) findViewById(R.id.btn_exEdit_save);
-//        btn_exE_img = (ImageButton) findViewById(R.id.btn_exEdit_img);
+        btn_exE_img = (ImageButton) findViewById(R.id.btn_exEdit_img);
 
 
 
         btn_exEC.setOnClickListener(this);
         btn_exES.setOnClickListener(this);
-//        btn_exE_img.setOnClickListener(this);
+        btn_exE_img.setOnClickListener(this);
 
     }
 
@@ -102,20 +123,45 @@ public class ExEdit extends AppCompatActivity implements View.OnClickListener{
             String extime = exETime.getText().toString();
             String excontents = exEContents.getText().toString();
 
-            Response.Listener<String> responseListener = new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.d("편집 후", response);
-//
+            sendBitmap = BitmapFactory.decodeResource(getResources(), R.id.btn_exEdit_img);
+            sendBitmap = ((BitmapDrawable) btn_exE_img.getDrawable()).getBitmap();
 
-                    Intent intent = new Intent(getApplicationContext(), ExList.class);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+            float scale = (float) (1024 / (float) sendBitmap.getWidth());
+            int image_w = (int) (sendBitmap.getWidth() * scale);
+            int image_h = (int) (sendBitmap.getHeight() * scale);
+            Bitmap resize = Bitmap.createScaledBitmap(sendBitmap, image_w, image_h, true);
+            resize.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] exImg = stream.toByteArray();
+
+            gson = new Gson();
+            ExDataOut exData = new ExDataOut(extitle, exstart, extime, excontents,exImg);
+
+            String ex_data = sharedPreferences.getString("ExDataOut", "");
+            Log.d("shared 업로드 내용", ex_data);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            if (ex_data.equals("")) {
+
+                exEdataItem = new ArrayList<ExDataOut>();
+                String addBodydata = gson.toJson(exEdataItem, typeExEdata);
+                editor.putString("exData", addBodydata);
+                editor.commit();
+            } else {
+
+                exEdataItem = gson.fromJson(ex_data, typeExEdata);
+            }
+
+            exEdataItem.set(pos, exData);
+            String sharedUpEex = gson.toJson(exEdataItem, typeExEdata);
+            editor.putString("ExDataOut", sharedUpEex);
+            editor.commit();
+
+            Intent intent = new Intent(getApplicationContext(), ExListOut.class);
                     startActivity(intent);
                     finish();
-                }
-            };
-            ExUpdate exUpdate = new ExUpdate(Integer.toString(exNum), extitle, exstart, extime, excontents, responseListener);
-            RequestQueue queue = Volley.newRequestQueue(ExEdit.this);
-            queue.add(exUpdate);
+
         }
         else if (v.getId() == R.id.btn_exEdit_img) {
             Intent intent = new Intent();

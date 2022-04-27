@@ -19,12 +19,12 @@
         android:text="EXERCISE"
         android:textSize="30sp"
         />
-<!--    <androidx.viewpager2.widget.ViewPager2-->
-<!--        android:id="@+id/viewp_rank"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="250dp"-->
-<!--        android:layout_weight="1"-->
-<!--        android:orientation="vertical" />-->
+    <!--    <androidx.viewpager2.widget.ViewPager2-->
+    <!--        android:id="@+id/viewp_rank"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="250dp"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:orientation="vertical" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ex_rv"
@@ -41,20 +41,13 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_exlist_back"
+            android:id="@+id/btn_exlist_logout_back"
             android:background="@drawable/shape_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="8"
             android:text="back" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_exlist_add"
-            android:background="@drawable/shape_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:text="WRITE" />
 
     </LinearLayout>
 
