@@ -1,4 +1,4 @@
-package com.nova.exwrite.bodywrite;
+package com.nova.exwrite.bodywrite.logout;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -23,9 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.R;
-import com.nova.exwrite.exercise.ExAdapter;
-import com.nova.exwrite.exercise.ExData;
-import com.nova.exwrite.exercise.ExEdit;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

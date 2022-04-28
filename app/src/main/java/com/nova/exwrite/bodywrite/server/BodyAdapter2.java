@@ -1,14 +1,10 @@
 package com.nova.exwrite.bodywrite.server;
 
 import static android.content.ContentValues.TAG;
-import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,24 +17,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.R;
-import com.nova.exwrite.bodywrite.BodyAdapter;
-import com.nova.exwrite.bodywrite.BodyData;
-import com.nova.exwrite.bodywrite.BodyEdit;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class BodyAdapter2 extends RecyclerView.Adapter<BodyAdapter2.CustomViewHolder> {

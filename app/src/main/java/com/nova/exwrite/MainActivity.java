@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -18,21 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
-import com.nova.exwrite.bodywrite.BodyList;
-import com.nova.exwrite.bodywrite.BodyWrite;
+import com.nova.exwrite.bodywrite.logout.BodyList;
 import com.nova.exwrite.bodywrite.server.BodyList2;
 import com.nova.exwrite.bodywrite.server.BodyWrite2;
-import com.nova.exwrite.exercise.ExAdapter;
-import com.nova.exwrite.exercise.ExData;
 import com.nova.exwrite.exercise.ExList;
 import com.nova.exwrite.exercise.ExWrite;
 import com.nova.exwrite.exercise.logout.ExListOut;
@@ -41,12 +33,6 @@ import com.nova.exwrite.meal.MealWrite;
 import com.nova.exwrite.meal.logout.MealListOut;
 import com.nova.exwrite.user.Join;
 import com.nova.exwrite.user.Login;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -114,23 +100,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loginID = loginId.getStringExtra("loginID");
 
 
-
         if (loginID == null) {
             login = false;
 //            if (login == false) {    // 로그아웃 상태
-                btmDialogProfile = inflaterP.inflate(R.layout.btm_dialog_profile, null, false);
-                btmSD_profile = new BottomSheetDialog(this);
-                btmSD_profile.setContentView(btmDialogProfile);
+            btmDialogProfile = inflaterP.inflate(R.layout.btm_dialog_profile, null, false);
+            btmSD_profile = new BottomSheetDialog(this);
+            btmSD_profile.setContentView(btmDialogProfile);
 
-                profile_login = btmDialogProfile.findViewById(R.id.profile_login);
-                profile_join = btmDialogProfile.findViewById(R.id.profile_join);
+            profile_login = btmDialogProfile.findViewById(R.id.profile_login);
+            profile_join = btmDialogProfile.findViewById(R.id.profile_join);
 
-                btmDialogLogin.setVisibility(View.INVISIBLE);
-                btmDialogProfile.setVisibility(View.VISIBLE);
+            btmDialogLogin.setVisibility(View.INVISIBLE);
+            btmDialogProfile.setVisibility(View.VISIBLE);
 
-                profile_login.setOnClickListener(this);
-                profile_join.setOnClickListener(this);
-                welcomeView.setText("회원정보를 통해 로그인 하시면 기록이 영구 저장됩니다.");
+            profile_login.setOnClickListener(this);
+            profile_join.setOnClickListener(this);
+            welcomeView.setText("회원정보를 통해 로그인 하시면 기록이 영구 저장됩니다.");
 
 //            }
         } else {
@@ -214,25 +199,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     } else {
                         Intent exWrite = new Intent(MainActivity.this, ExListOut.class);
                         startActivity(exWrite);
-
                     }
-
-//                    drawerLayout.closeDrawers();
                 } else if (item.getItemId() == R.id.mealList) {
                     if (login == true) {
                         Intent mWrite = new Intent(MainActivity.this, MealList.class);
-                        mWrite.putExtra("id", loginID);
-                        Log.d("id", loginID);
                         startActivity(mWrite);
                     } else {
                         Intent intent = new Intent(MainActivity.this, MealListOut.class);
                         startActivity(intent);
-//                    drawerLayout.closeDrawers();
                     }
                 } else if (item.getItemId() == R.id.bodyList) {
-                    Intent intent = new Intent(MainActivity.this, BodyList2.class);
-                    startActivity(intent);
-//                    drawerLayout.closeDrawers();
+                    if (login == true) {
+                        Intent intent = new Intent(MainActivity.this, BodyList2.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, BodyList.class);
+                        startActivity(intent);
+                    }
                 }
                 return true;
             }
@@ -258,7 +241,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                Intent intent = new Intent(MainActivity.this, Activity_map.class);
 //                startActivity(intent);
                 break;
-            case R.id.obtion_btn_todo:
+            case R.id.obtion_btn_stopwatch:
+                Intent todoIntent = new Intent(this, StopWatch.class);
+                startActivity(todoIntent);
+                break;
+            case R.id.obtion_btn_share:
 //                Intent todoIntent = new Intent(this, Activity_todolist.class);
 //                startActivity(todoIntent);
                 break;

@@ -1,12 +1,10 @@
 package com.nova.exwrite.bodywrite.server;
 
 
-import static android.content.ContentValues.TAG;
-
-
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,26 +14,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import com.nova.exwrite.R;
-
-import com.nova.exwrite.bodywrite.BodyWrite;
 
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 
@@ -47,14 +36,22 @@ public class BodyList2 extends AppCompatActivity implements View.OnClickListener
 
     final Context context = this;
 
+    String sharedBody = "LoginID";
+    SharedPreferences sharedPreferences;
 
     RequestQueue queue;
+    String loginID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bodylist2);
+
+        sharedPreferences = getSharedPreferences(sharedBody, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("LoginID", MODE_PRIVATE);
+        loginID = prefs.getString("loginID", "0"); //키값, 디폴트값
+
 
         recyclerView = findViewById(R.id.body_rv2);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -89,9 +86,10 @@ public class BodyList2 extends AppCompatActivity implements View.OnClickListener
 
     }
     public void bodyRecord() {
-        String URL = "http://solution12441.dothome.co.kr/bodylist2.php";
+//        String URL = "http://solution12441.dothome.co.kr/bodylist2.php";
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("body", response);
@@ -131,11 +129,9 @@ public class BodyList2 extends AppCompatActivity implements View.OnClickListener
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
-        queue.add(stringRequest);
+        };
+        BodyListReq bodyListReq = new BodyListReq(loginID, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(BodyList2.this);
+        queue.add(bodyListReq);
     }
 }

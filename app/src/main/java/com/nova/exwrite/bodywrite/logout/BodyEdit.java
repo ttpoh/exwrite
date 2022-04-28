@@ -1,4 +1,4 @@
-package com.nova.exwrite.bodywrite;
+package com.nova.exwrite.bodywrite.logout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,8 +19,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.MainActivity;
 import com.nova.exwrite.R;
-import com.nova.exwrite.exercise.ExData;
-import com.nova.exwrite.exercise.ExList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;

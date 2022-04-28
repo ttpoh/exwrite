@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,21 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.MainActivity;
 import com.nova.exwrite.R;
-import com.nova.exwrite.bodywrite.BodyData;
-import com.nova.exwrite.bodywrite.BodyList;
-import com.nova.exwrite.user.Login;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 public class BodyWrite2 extends AppCompatActivity implements View.OnClickListener {
     EditText bodyWeight, bodyMuscle, bodyFat, bodyContents;
@@ -41,14 +31,22 @@ public class BodyWrite2 extends AppCompatActivity implements View.OnClickListene
     Bitmap sendBitmap, img;
     private static final int REQUEST_CODE = 0;
 
+    String sharedBody = "LoginID";
+    SharedPreferences sharedPreferences;
 
-
+    RequestQueue queue;
+    String loginID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.body_write);
+
+        sharedPreferences = getSharedPreferences(sharedBody, MODE_PRIVATE);
+        SharedPreferences prefs =getSharedPreferences("LoginID", MODE_PRIVATE);
+        loginID = prefs.getString("loginID", "0"); //키값, 디폴트값
+
 
         bodyWeight = (EditText) findViewById(R.id.body_weight);
         bodyMuscle = (EditText) findViewById(R.id.body_muscle);
@@ -79,7 +77,7 @@ public class BodyWrite2 extends AppCompatActivity implements View.OnClickListene
 
         } else if (v.getId() == R.id.btn_bodywrite_save) {
 
-            String bodyweight1 = bodyWeight.getText().toString();
+
             String bodyweight2 = bodyWeight.getText().toString();
             String bodymuscle = bodyMuscle.getText().toString();
             String bodyfat = bodyFat.getText().toString();
@@ -110,7 +108,7 @@ public class BodyWrite2 extends AppCompatActivity implements View.OnClickListene
                     }
                 }
             };
-            BodyRequest2 bodyRequest2 = new BodyRequest2(bodyweight1, bodyweight2, bodymuscle, bodyfat, bodymemo, responseListener);
+            BodyRequest2 bodyRequest2 = new BodyRequest2(loginID, bodyweight2, bodymuscle, bodyfat, bodymemo, responseListener);
             RequestQueue queue = Volley.newRequestQueue(BodyWrite2.this);
             queue.add(bodyRequest2);
 

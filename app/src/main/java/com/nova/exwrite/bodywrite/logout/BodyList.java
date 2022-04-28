@@ -1,4 +1,4 @@
-package com.nova.exwrite.bodywrite;
+package com.nova.exwrite.bodywrite.logout;
 
 import static android.content.ContentValues.TAG;
 
@@ -18,9 +18,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.R;
-import com.nova.exwrite.exercise.ExAdapter;
-import com.nova.exwrite.exercise.ExData;
-import com.nova.exwrite.exercise.ExWrite;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

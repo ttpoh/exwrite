@@ -9,7 +9,11 @@
         android:title="검색"
         app:showAsAction="always" />
     <item
-        android:id="@+id/obtion_btn_todo"
+        android:id="@+id/obtion_btn_stopwatch"
+        android:title="운동시간"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/obtion_btn_share"
         android:title="공유"
         app:showAsAction="always" />
 

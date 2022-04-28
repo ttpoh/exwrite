@@ -48,12 +48,14 @@ public class ExWrite extends AppCompatActivity implements View.OnClickListener{
 
     RequestQueue queue;
     String loginID;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ex_write);
+        intent = getIntent();
 
         sharedPreferences = getSharedPreferences(sharedBody, MODE_PRIVATE);
         SharedPreferences prefs =getSharedPreferences("LoginID", MODE_PRIVATE);
@@ -64,6 +66,9 @@ public class ExWrite extends AppCompatActivity implements View.OnClickListener{
         exStart = (EditText) findViewById(R.id.et_exstart);
         exTime = (EditText) findViewById(R.id.et_extime);
         exContents = (EditText) findViewById(R.id.et_excontents);
+
+        exTime.setText(intent.getStringExtra("exTime"));
+
 
         btn_exC = (Button) findViewById(R.id.btn_exwrite_cancle);
         btn_exS = (Button) findViewById(R.id.btn_exwrite_save);

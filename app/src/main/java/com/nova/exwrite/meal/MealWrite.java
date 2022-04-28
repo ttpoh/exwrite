@@ -1,6 +1,7 @@
 package com.nova.exwrite.meal;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -33,6 +34,9 @@ public class MealWrite extends AppCompatActivity implements View.OnClickListener
     private static final int REQUEST_CODE = 0;
     ArrayList<MealData> mdataItem;
 
+    String sharedBody = "LoginID";
+    SharedPreferences sharedPreferences;
+    String loginID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,9 @@ public class MealWrite extends AppCompatActivity implements View.OnClickListener
         btn_mS = (Button) findViewById(R.id.btn_mwrite_save);
         btn_m_img = (ImageButton) findViewById(R.id.mealImg);
 
+        sharedPreferences = getSharedPreferences(sharedBody, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("LoginID", MODE_PRIVATE);
+        loginID = prefs.getString("loginID", "0"); //키값, 디폴트값
 
 
         btn_mC.setOnClickListener(this);
@@ -70,7 +77,7 @@ public class MealWrite extends AppCompatActivity implements View.OnClickListener
 
         }
         else if (v.getId() == R.id.btn_mwrite_save) {
-            String mtitle1 = mTitle.getText().toString();
+
             String mtitle2 = mTitle.getText().toString();
             String mtime = mTime.getText().toString();
             String mamount = mAmount.getText().toString();
@@ -100,7 +107,7 @@ public class MealWrite extends AppCompatActivity implements View.OnClickListener
                     }
                 }
             };
-            MealWrReq mealWrReq = new MealWrReq(mtitle1, mtitle2, mtime, mamount, mcontents, responseListener);
+            MealWrReq mealWrReq = new MealWrReq(loginID, mtitle2, mtime, mamount, mcontents, responseListener);
             RequestQueue queue = Volley.newRequestQueue(MealWrite.this);
             queue.add(mealWrReq);
 

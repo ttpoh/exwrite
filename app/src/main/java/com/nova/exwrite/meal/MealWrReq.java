@@ -14,11 +14,11 @@ public class MealWrReq extends StringRequest {
     private Map<String, String> map;
 
 
-    public MealWrReq(String nickname, String name, String time, String amount, String memo, Response.Listener<String> listener) {
+    public MealWrReq(String id, String name, String time, String amount, String memo, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
         map = new HashMap<>();
-        map.put("nickname", nickname);
+        map.put("id", id);
         map.put("name", name);
         map.put("time", time);
         map.put("amount", amount);

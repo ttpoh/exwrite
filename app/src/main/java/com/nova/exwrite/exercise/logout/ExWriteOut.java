@@ -15,23 +15,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.MainActivity;
 import com.nova.exwrite.R;
-import com.nova.exwrite.bodywrite.BodyData;
-import com.nova.exwrite.bodywrite.BodyList;
-import com.nova.exwrite.bodywrite.server.BodyList2;
-import com.nova.exwrite.bodywrite.server.BodyRequest2;
-import com.nova.exwrite.bodywrite.server.BodyWrite2;
-import com.nova.exwrite.exercise.logout.ExDataOut;
-import com.nova.exwrite.exercise.logout.ExListOut;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -53,16 +40,23 @@ public class ExWriteOut extends AppCompatActivity implements View.OnClickListene
     Type arraylist_exData = new TypeToken<ArrayList<ExDataOut>>() {
     }.getType();
 
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ex_write);
 
+        intent = getIntent();
+
+
         exTitle = (EditText) findViewById(R.id.et_extitle);
         exStart = (EditText) findViewById(R.id.et_exstart);
         exTime = (EditText) findViewById(R.id.et_extime);
         exContents = (EditText) findViewById(R.id.et_excontents);
+
+        exTime.setText(intent.getStringExtra("exTime"));
 
         btn_exC = (Button) findViewById(R.id.btn_exwrite_cancle);
         btn_exS = (Button) findViewById(R.id.btn_exwrite_save);

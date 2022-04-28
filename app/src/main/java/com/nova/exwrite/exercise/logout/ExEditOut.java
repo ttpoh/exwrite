@@ -15,18 +15,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.MainActivity;
 import com.nova.exwrite.R;
-import com.nova.exwrite.bodywrite.BodyData;
-import com.nova.exwrite.exercise.ExData;
-import com.nova.exwrite.exercise.ExEdit;
-import com.nova.exwrite.exercise.ExList;
-import com.nova.exwrite.exercise.ExUpdate;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;

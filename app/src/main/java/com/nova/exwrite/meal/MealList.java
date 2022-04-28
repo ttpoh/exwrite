@@ -23,6 +23,8 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.nova.exwrite.R;
 import com.nova.exwrite.exercise.ExData;
+import com.nova.exwrite.exercise.ExList;
+import com.nova.exwrite.exercise.ExListReq;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,13 +43,19 @@ public class MealList extends AppCompatActivity implements View.OnClickListener,
 
     private ArrayList<MealData> mdataItem;
     RequestQueue queue;
-
+    String sharedBody = "LoginID";
+    SharedPreferences sharedPreferences;
+    String loginID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.meallist);
+
+        sharedPreferences = getSharedPreferences(sharedBody, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("LoginID", MODE_PRIVATE);
+        loginID = prefs.getString("loginID", "0"); //키값, 디폴트값
 
         bottomView = findViewById(R.id.btmNavMeal);
         bottomView.setOnNavigationItemSelectedListener(listener);
@@ -161,9 +169,10 @@ public class MealList extends AppCompatActivity implements View.OnClickListener,
     }
 
     public void mealRecord() {
-        String URL = "http://solution12441.dothome.co.kr/mealList/meallist.php";
+//        String URL = "http://solution12441.dothome.co.kr/mealList/meallist.php";
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("ex", response);
@@ -177,6 +186,7 @@ public class MealList extends AppCompatActivity implements View.OnClickListener,
 
 
                         obj.getInt("no");
+                        obj.getString("id");
                         obj.getString("name");
                         obj.getString("time");
                         obj.getString("amount");
@@ -203,12 +213,10 @@ public class MealList extends AppCompatActivity implements View.OnClickListener,
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
-        queue.add(stringRequest);
+        };
+        MealListReq mListReq = new MealListReq(loginID, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(MealList.this);
+        queue.add(mListReq);
     }
 
     @Override

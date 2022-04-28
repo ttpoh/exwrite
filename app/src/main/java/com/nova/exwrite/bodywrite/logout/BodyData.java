@@ -1,4 +1,4 @@
-package com.nova.exwrite.bodywrite;
+package com.nova.exwrite.bodywrite.logout;
 
 import java.io.Serializable;
 

@@ -1,6 +1,5 @@
 package com.nova.exwrite.exercise.logout;
 
-import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
@@ -21,19 +20,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.R;
-import com.nova.exwrite.bodywrite.BodyAdapter;
-import com.nova.exwrite.bodywrite.BodyData;
-import com.nova.exwrite.bodywrite.BodyEdit;
-import com.nova.exwrite.exercise.ExAdapter;
-import com.nova.exwrite.exercise.ExData;
-import com.nova.exwrite.exercise.ExEdit;
-import com.nova.exwrite.exercise.ExListD;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
