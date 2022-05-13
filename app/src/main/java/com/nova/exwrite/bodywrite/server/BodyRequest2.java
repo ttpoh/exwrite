@@ -10,7 +10,7 @@ import java.util.Map;
 public class BodyRequest2 extends StringRequest {
 
     // 서버 URL 설정 ( PHP 파일 연동 )
-    final static private String URL = "http://solution12441.dothome.co.kr/bodywriteR.php";
+    final static private String URL = "http://solution12441.dothome.co.kr/body/bodywriteR.php";
     private Map<String, String> map;
 
 

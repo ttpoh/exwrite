@@ -27,7 +27,8 @@ public class ExWrReq extends StringRequest {
         map.put("ex_time", extime);
         map.put("contents", excontents);
 //        map.put("memo", memo);
-//        map.put("bodyImg", img_path);
+//        map.put("img", exImg);
+//        System.out.println("loginid" + exImg);
     }
 
     @Override

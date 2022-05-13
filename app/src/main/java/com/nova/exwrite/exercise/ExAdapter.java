@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nova.exwrite.R;
@@ -59,16 +62,22 @@ public class  ExAdapter extends RecyclerView.Adapter<ExAdapter.CustomViewHolder>
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-//        protected ImageView exImg;
+        protected ImageView exImg;
         protected TextView exTitle;
         protected TextView exId;
         protected TextView exStart;
         protected TextView exTime;
         protected TextView exContents;
+        protected SimpleDraweeView draweeView;
         int exNumber;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
+//            Fresco.initialize(context);
+            //액티비티가 아닌 곳에서 Context를 쓰기 위해 액티비티에서 Context 값을 가져옵니다.
+            //액티비티
+
+//            draweeView = (SimpleDraweeView) itemView.findViewById(R.id.my_image_view);
 
 //            this.exImg = itemView.findViewById(R.id.btn_exwrite_img);
             this.exId = itemView.findViewById(R.id.exID);
@@ -153,8 +162,8 @@ public class  ExAdapter extends RecyclerView.Adapter<ExAdapter.CustomViewHolder>
 
 //            byte[] arr = item.getEx_pic();
 //            Bitmap image = BitmapFactory.decodeByteArray(arr, 0, arr.length);
-
-
+//
+//
 //            exImg.setImageBitmap(image);
             exTitle.setText(item.getExtitle());
             exId.setText(item.getExId());
@@ -181,6 +190,9 @@ public class  ExAdapter extends RecyclerView.Adapter<ExAdapter.CustomViewHolder>
 
         Log.d("바인드뷰홀더", "바뷰홀더");
         viewholder.onBind(arrayEx.get(position));
+
+//        Uri uri = Uri.parse("C:\\Users\\solut\\exwrite\\html\\exList\\home.PNG");
+//        viewholder.draweeView.setImageURI(uri);
 
     }
 

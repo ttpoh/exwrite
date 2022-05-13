@@ -21,7 +21,7 @@ public class ExData implements Serializable {
         this.exstart = exstart;
         this.extime = extime;
         this.excontents = excontents;
-//        this.ex_pic = exImg;
+        this.ex_pic = ex_pic;
     }
     public int getExNumber() {
 

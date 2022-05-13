@@ -43,6 +43,7 @@ public class StopWatch extends AppCompatActivity implements View.OnClickListener
     String sSplit;
 
     Context context;
+    String sEll;
 
     @Override
 
@@ -53,7 +54,7 @@ public class StopWatch extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.stop_watch);
 
         mEllapse = (TextView) findViewById(R.id.ellapse);
-        mSplit = (TextView) findViewById(R.id.split);
+//        mSplit = (TextView) findViewById(R.id.split);
 
         mBtnStart = (Button) findViewById(R.id.btnstart);
         mBtnSplit = (Button) findViewById(R.id.btnsplit);
@@ -169,15 +170,17 @@ public class StopWatch extends AppCompatActivity implements View.OnClickListener
 
                         //기존의 값을 가져온뒤 이어붙이기 위해서
 
-                        sSplit = mSplit.getText().toString();
+//                        sSplit = mSplit.getText().toString();
 
                         //+연산자로 이어붙임
 
-                        sSplit += String.format("%d => %s\n", mSplitCount, getEllapse());
+                        sSplit = String.format("%s\n", getEllapse());
 
                         //텍스트뷰의 값을 바꿔줌
-                        mSplit.setText(sSplit);
+//                        mSplit.setText(sSplit);
                         mSplitCount++;
+
+                        mTimer.removeMessages(0);
 
 
                         String st[] = {"1.예", "2.아니오"};
@@ -235,8 +238,14 @@ public class StopWatch extends AppCompatActivity implements View.OnClickListener
         long now = SystemClock.elapsedRealtime();
         long ell = now - mBaseTime;//현재 시간과 지난 시간을 빼서 ell값을 구하고
         //아래에서 포맷을 예쁘게 바꾼다음 리턴해준다.
-        String sEll = String.format("%02d:%02d:%02d", ell / 1000 / 60, (ell / 1000) % 60, (ell % 1000) / 10);
+        if(ell/1000/60>0) {
 
+            sEll = String.format("%02d분 %2d초 %02d초", ell / 1000 / 60, (ell / 1000) % 60, (ell % 1000) / 10);
+        }else{
+
+            sEll = String.format("%2d초 %02d", (ell / 1000) % 60, (ell % 1000) / 10);
+
+        }
         return sEll;
 
     }

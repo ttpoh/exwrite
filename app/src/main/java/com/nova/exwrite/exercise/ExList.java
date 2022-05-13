@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -59,7 +60,6 @@ public class ExList extends AppCompatActivity implements View.OnClickListener, E
         loginID = prefs.getString("loginID", "0"); //키값, 디폴트값
 
 
-
         Log.d("아이디가 null이 아닐 때", "2");
         setContentView(R.layout.exlist);
         Button Add_ex_back = (Button) findViewById(R.id.btn_exlist_back);
@@ -82,52 +82,7 @@ public class ExList extends AppCompatActivity implements View.OnClickListener, E
         recyclerView.setAdapter(exAdapter);
 
     }
-//    public void LoginExRecord() {
-//        Response.Listener<String> responseListener = new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                try {
-//                    System.out.println("hongchul" + response);
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    boolean success = jsonObject.getBoolean("success");
-//                    if (success) {
-//
-//                        Intent intent = new Intent(ExWrite.this, ExList.class);//
-//                        startActivity(intent);
-//                        finish();
-//                    } else { // 로그인에 실패한 경우
-//                        Toast.makeText(getApplicationContext(), "저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        };
-//        ExListReq exListReq = new ExListReq(loginID);
-//        RequestQueue queue = Volley.newRequestQueue(ExList.this);
-//        queue.add(exListReq);
-//
-//
-//
-//    }
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        String ex_Edata = sharedPreferences.getString("ExData", "");
-//        if (ex_Edata.equals("")) {
-//            exdataItem = new ArrayList<ExData>();
-//            String book_array = gson.toJson(exdataItem, typeExdata);
-//            editor.putString("bookData", book_array);
-//            editor.commit();
-//        } else {
-//            exdataItem = gson.fromJson(ex_Edata, typeExdata);
-//        }
-//        Log.d(TAG, "arraybook : " + "사이즈" + exdataItem.size());
-//        adapter = new ExAdapter(context, this, exdataItem);
-//        recyclerView.setAdapter(adapter);
-//    }
+
 
     @Override
     public void onClick(View v) {
@@ -169,7 +124,7 @@ public class ExList extends AppCompatActivity implements View.OnClickListener, E
                         obj.getString("ex_time");
                         obj.getString("contents");
 //                        obj.getString("memo");
-//                       obj.getString("img_path");
+//                       obj.getString("img");
 
                         ExData exData = new ExData(obj.getInt("no"), obj.getString("id"), obj.getString("title"), obj.getString("start_time"), obj.getString("ex_time"), obj.getString("contents"));
 //                        bodyData2.setBodyNickname(obj.getString("nickname"));

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="360dp"
     android:layout_height="400dp"
     android:layout_marginLeft="24dp"
@@ -15,41 +15,41 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="50dp"
             android:layout_height="40dp"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
 
         <View
             android:id="@+id/markEx"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginTop="5dp"
-            android:background="@drawable/run"/>
+            android:layout_weight="1"
+            android:background="@drawable/run" />
 
         <TextView
             android:id="@+id/exID"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:textSize="25dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"/>
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/btn_exwrite_cancle"-->
-<!--            android:layout_marginRight="40dp"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="left"-->
-<!--            android:layout_weight="1"-->
-<!--            android:backgroundTint="@color/etc_sky"-->
-<!--            android:padding="1dp"-->
-<!--            android:text="X"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="13dp"-->
-<!--            android:textStyle="bold"/>-->
-
+            android:layout_marginTop="10dp"
+            android:layout_weight="4"
+            android:textSize="25dp" />
+        <!--        <androidx.appcompat.widget.AppCompatButton-->
+        <!--            android:id="@+id/btn_exwrite_cancle"-->
+        <!--            android:layout_marginRight="40dp"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="left"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:backgroundTint="@color/etc_sky"-->
+        <!--            android:padding="1dp"-->
+        <!--            android:text="X"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:textSize="13dp"-->
+        <!--            android:textStyle="bold"/>-->
 
 
     </LinearLayout>
@@ -62,98 +62,106 @@
 
         <TextView
             android:id="@+id/extitle"
-            android:layout_marginLeft="30dp"
             android:layout_width="150dp"
             android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
             android:layout_weight="1"
-            android:textStyle="bold"
+            android:text="제목"
             android:textSize="20dp"
-            android:text="제목"/>
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/exTitle"
-            android:layout_marginLeft="30dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
             android:layout_weight="1"
+            android:hint="제목"
             android:textSize="30dp"
-            android:textStyle="bold"
-            android:hint="제목"/>
+            android:textStyle="bold" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
         android:layout_height="40dp"
         android:layout_gravity="end"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/exstart"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold"
             android:layout_width="170dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
+            android:text="시작 시간"
             android:textSize="20dp"
-            android:text="시작 시간"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/exStart"
-            android:layout_marginLeft="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
             android:layout_weight="1"
+            android:hint="시작 시간을 입력해 주세요."
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:hint="시작 시간을 입력해 주세요."/>
+            android:textStyle="bold" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="end"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/extime"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold"
             android:layout_width="170dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
+            android:text="운동 시간"
             android:textSize="20dp"
-            android:text="운동 시간"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/exTime"
-            android:layout_marginLeft="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
             android:layout_weight="1"
+            android:hint="운동한 시간을 입력해 주세요."
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:hint="운동한 시간을 입력해 주세요."/>
+            android:textStyle="bold" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_gravity="end"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/exCon"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold"
-            android:textAlignment="center"
             android:layout_width="170dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
+            android:text="내용"
+            android:textAlignment="center"
             android:textSize="20dp"
-            android:text="내용"/>
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/exContents"
-            android:layout_marginLeft="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
             android:layout_weight="1"
+            android:hint="운동 내용을 입력해 주세요."
             android:textSize="15dp"
-            android:textStyle="bold"
-            android:hint="운동 내용을 입력해 주세요."/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -162,14 +170,20 @@
         android:layout_gravity="end"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/btn_exwrite_img"
-            android:layout_width="170dp"
-            android:layout_height="140dp"
-            android:layout_marginLeft="95dp"
-            android:layout_centerHorizontal="true"
-            app:srcCompat="@drawable/noimg"
-            android:scaleType="fitXY"/>
+<!--        <com.facebook.drawee.view.SimpleDraweeView-->
+<!--            android:id="@+id/my_image_view"-->
+<!--            android:layout_width="130dp"-->
+<!--            android:layout_height="130dp"-->
+<!--            android:layout_marginLeft="95dp"-->
+<!--            fresco:placeholderImage="@drawable/noimg" />-->
+                <ImageView
+                    android:id="@+id/btn_exwrite_img"
+                    android:layout_width="170dp"
+                    android:layout_height="140dp"
+                    android:layout_marginLeft="95dp"
+                    android:layout_centerHorizontal="true"
+                    app:srcCompat="@drawable/noimg"
+                    android:scaleType="fitXY"/>
     </LinearLayout>
 
 
