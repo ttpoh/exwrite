@@ -22,7 +22,7 @@ import org.json.JSONObject;
 
 public class Join extends AppCompatActivity implements View.OnClickListener {
 
-    EditText joinemail, joinpw, joinnickname;
+    EditText joinemail, joinpw, joinpwcheck, joinnickname;
     Button btnJoin_cancle, btnJoin, btnIdck;
 
     private AlertDialog dialog;
@@ -36,8 +36,12 @@ public class Join extends AppCompatActivity implements View.OnClickListener {
 
         joinemail = (EditText) findViewById(R.id.et_joinemail);
         joinpw = (EditText) findViewById(R.id.et_joinpw);
+        joinpwcheck = (EditText) findViewById(R.id.et_joinpwcheck);
         joinnickname = (EditText) findViewById(R.id.et_nickname);
+        String joinPw = joinpw.getText().toString();
+if(joinpw == joinpwcheck){
 
+}
         btnJoin_cancle = (Button) findViewById(R.id.btn_join_cancle);
         btnJoin = (Button) findViewById(R.id.btn_join);
         btnIdck = (Button) findViewById(R.id.btn_join_idck);

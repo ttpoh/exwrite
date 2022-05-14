@@ -110,21 +110,7 @@ public class ExWrite extends AppCompatActivity implements View.OnClickListener {
             String extime = exTime.getText().toString();
             String excontents = exContents.getText().toString();
 
-//            sendBitmap = BitmapFactory.decodeResource(getResources(), R.id.btn_bodywrite_img);
-//            sendBitmap = ((BitmapDrawable) btn_ex_img.getDrawable()).getBitmap();
-//
-//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//
-//            float scale = (float) (1024 / (float) sendBitmap.getWidth());
-//            int image_w = (int) (sendBitmap.getWidth() * scale);
-//            int image_h = (int) (sendBitmap.getHeight() * scale);
-//            Bitmap resize = Bitmap.createScaledBitmap(sendBitmap, image_w, image_h, true);
-//            resize.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//            byte[] exImg = stream.toByteArray();
-//
-//            encodeImageString = android.util.Base64.encodeToString(exImg, Base64.DEFAULT);
-
-
+            encodeBitmapImage(img);
             Response.Listener<String> responseListener = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -155,68 +141,9 @@ public class ExWrite extends AppCompatActivity implements View.OnClickListener {
             intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
             intent.setType("image/*");
             startActivityForResult(intent, REQUEST_CODE);
-//            intent.setType("image/*");
-//            intent.setAction(Intent.ACTION_GET_CONTENT);
-//            startActivityForResult(intent, REQUEST_CODE);
 
         }
     }
-//    public String getPath(Uri uri)
-//    {
-//        String[] projection = { MediaStore.Images.Media.DATA };
-//        Cursor cursor = managedQuery(uri, projection, null, null, null);
-//        startManagingCursor(cursor);
-//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//        cursor.moveToFirst();
-//        return cursor.getString(column_index);
-//    }
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == GALLEY_CODE) {
-//
-//            Uri photoUri = data.getData();
-//
-//            Cursor cursor = null;
-//
-//            try {
-//                /*
-//                 *  Uri 스키마를
-//                 *  content:/// 에서 file:/// 로  변경한다.
-//                 */
-//                String[] proj = { MediaStore.Images.Media.DATA };
-//
-//                assert photoUri != null;
-//                cursor = getContentResolver().query(photoUri, proj, null, null, null);
-//
-//                assert cursor != null;
-//                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//
-//                cursor.moveToFirst();
-//
-//                tempFile = new File(cursor.getString(column_index));
-//
-//            } finally {
-//                if (cursor != null) {
-//                    cursor.close();
-//                }
-//            }
-//
-//            setImage();
-//
-//        }
-//    }
-//    private void setImage() {
-//
-//        btn_ex_img = findViewById(R.id.btn_exwrite_img);
-//
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        Bitmap originalBm = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
-//
-//        btn_ex_img.setImageBitmap(originalBm);
-//
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -229,7 +156,7 @@ public class ExWrite extends AppCompatActivity implements View.OnClickListener {
                     img = BitmapFactory.decodeStream(in);
                     in.close();
                     btn_ex_img.setImageBitmap(img);
-                    encodeBitmapImage(img);
+
                 } catch (Exception e) {
 
                 }
@@ -241,7 +168,7 @@ public class ExWrite extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    private void encodeBitmapImage(Bitmap bitmap) {
+    private void encodeBitmapImage(Bitmap bitmap) {//비트맵 형식의 이미지를 base64를 써서 스트링으로 변환
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
 
